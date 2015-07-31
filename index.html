@@ -15,10 +15,27 @@
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          $tweet.text(tweet.created_at + ' @' + tweet.user + ': ' + tweet.message);
           $tweet.appendTo($body);
           index -= 1;
         }
+
+        index = streams.home.length - 1;
+
+        function showNewTweets() {
+          while(index < streams.home.length - 1){
+            index++;
+            var tweet = streams.home[index];
+            var $tweet = $('<div></div>');
+            $tweet.text(tweet.created_at + ' @' + tweet.user + ': ' + tweet.message);
+            $tweet.prependTo($body);
+            if (streams.home.length > 20) {
+              $("div").last().remove();
+            }
+          }          
+        }
+
+        setInterval(showNewTweets, 100);
 
       });
 
