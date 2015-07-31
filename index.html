@@ -8,10 +8,16 @@
   <body>
     <div id="header">
       <h1>Twittler</h1>
+      <div id="left-subheader">
+        <h2>All recent tweets:</h2>
+      </div>
+      <div id="right-subheader">
+        <h2>User recent tweets:</h2>
+      </div>
     </div>
     <div id="container">
       <div id="allTweets"></div>
-      <div id="userTweets"></div>
+      <div id="userTweets">Click on a user's name to see their timeline!</div>
     </div>
 
      <script>
@@ -19,6 +25,8 @@
       $(document).ready(function(){
         var $allTweets = $('#allTweets');
         var $userTweets = $("#userTweets");
+        var userClicked;
+        var lastUserTweet;
 
         var index = 0;
         while(index < streams.home.length - 1){
@@ -35,37 +43,45 @@
             var $user = $('<span></span>');
             var $message = $('<span></span>');
 
-            $date.text(index + "   " + tweet.month + "/" + tweet.day + " " + tweet.hour + ":" + tweet.minute + ":" + tweet.second + " ");
+            $date.text(tweet.month + "/" + tweet.day + " " + tweet.hour + ":" + tweet.minute + ":" + tweet.second + " ");
             $user.text("@" + tweet.user);
             $message.text(": " + tweet.message); 
 
-            $tweet.addClass("tweet default");
-            $user.addClass("user default");
-            $date.addClass("date default");
-            $message.addClass("default");
+            $tweet.addClass("tweet");
+            $user.addClass("user");
+            $date.addClass("date");
 
             $date.appendTo($tweet);
             $user.appendTo($tweet);
             $message.appendTo($tweet);
             $tweet.prependTo(section);
+            lastUserTweet = tweet.user;
         }
 
         function showNewTweets() {
           while(index < streams.home.length - 1){
             displayTweet(index, streams.home, $allTweets);
-            $("#allTweets .tweet").last().remove();
+            if (userClicked === lastUserTweet) {
+              displayTweet(index, streams.home, $userTweets);
+            }
             index++;
           }          
+        }
+
+        function removeExcessTweets() {
+            $("#allTweets .tweet").last().remove();
         }
 
         $("#allTweets").on("click", ".user", function() {
           $userTweets.html('');
           $userName = $(this).text().slice(1);
+          $("#right-subheader h2").text($userName + " recent tweets:");          
+          userClicked = $userName;
           var userStream = $userName === "shawndrost"? streams.users.shawndrost : 
                       $userName === "sharksforcheap"? streams.users.sharksforcheap : 
                       $userName === "mracus"? streams.users.mracus: 
                       streams.users.douglascalhoun;
-          for (var i = 0; i < userStream.length - 1; i++) {
+          for (i = 0; i < userStream.length - 1; i++) {
             displayTweet(i, userStream, $userTweets);
           }
         });

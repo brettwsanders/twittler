@@ -1,32 +1,46 @@
 
 #header {
-	width: 100%;
-	height: 75px;
-	border: 1px solid black;
+	width: 800px;
+	height: auto;
+	margin: 0 auto;
+	border-bottom: 1px solid black;
+}
+
+#left-subheader{
+	width: 400px;
+	height: 60px;
+	float: left;
+}
+
+#right-subheader {
+	width: 400px;
+	height: 60px;
+	float: right;
 }
 
 #container {
-	width: 100%;
+	width: 800px;
 	height: auto;
-	border: 1px solid black;
+	font: 11px Arial, 'sans-sarif';
+	border-bottom: 1px solid black;
+	margin: 0 auto;
+	overflow: auto;
 }
 
 #allTweets {
 	width: 400px;
 	height: 600px;
-	border: 1px solid blue;
 	float: left;
 }
 
 #userTweets {
 	width: 400px;
 	height: 600px;
-	border: 1px solid red;
-	float: left;
+	float: right;
 }
 
 .user {
-	color: blue;
+	color: #3399FF;
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -39,9 +53,4 @@
 	margin: 5px;
 	height: auto;
 	width: auto;
-}
-
-.default {
-	font-family: arial;
-	font-size: 11px;
 }
