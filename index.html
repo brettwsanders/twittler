@@ -29,9 +29,7 @@
             var $tweet = $('<div></div>');
             $tweet.text(tweet.created_at + ' @' + tweet.user + ': ' + tweet.message);
             $tweet.prependTo($body);
-            if (streams.home.length > 20) {
-              $("div").last().remove();
-            }
+            $("div").last().remove();
           }          
         }
 
