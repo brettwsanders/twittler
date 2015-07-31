@@ -43,16 +43,21 @@ var generateRandomTweet = function(){
   tweet.user = randomElement(users);
   tweet.message = randomMessage();
   tweet.created_at = new Date();
+  tweet.month = tweet.created_at.getMonth() + 1;
+  tweet.day = tweet.created_at.getDate();
+  tweet.hour = tweet.created_at.getHours();
+  tweet.minute = tweet.created_at.getMinutes();
+  tweet.second = tweet.created_at.getSeconds();
   addTweet(tweet);
 };
 
-for(var i = 0; i < 20; i++){
+for(var i = 0; i < 30; i++){
   generateRandomTweet();
 }
 
 var scheduleNextTweet = function(){
   generateRandomTweet();
-  setTimeout(scheduleNextTweet, Math.random() * 2500);
+  setTimeout(scheduleNextTweet, Math.random() * 3500);
 };
 scheduleNextTweet();
 

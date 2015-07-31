@@ -6,48 +6,69 @@
     <link rel="stylesheet" type="text/css" href="style.css" media="screen">
   </head>
   <body>
-    <script>
+    <div id="header">
+      <h1>Twittler</h1>
+    </div>
+    <div id="container">
+      <div id="allTweets"></div>
+      <div id="userTweets"></div>
+    </div>
+
+     <script>
 
       $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+        var $allTweets = $('#allTweets');
+        var $userTweets = $("#userTweets");
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          displayTweet(index);
-          index -= 1;
+        var index = 0;
+        while(index < streams.home.length - 1){
+          displayTweet(index, streams.home, $allTweets);
+          index ++;
         }
 
-        index = streams.home.length - 1;
         setInterval(showNewTweets, 100);
-        
-        function displayTweet(index) {
-            var tweet = streams.home[index];
-            var $tweet = $('<div></div>');
 
+        function displayTweet(index, array, section) {
+            var tweet = array[index];
+            var $tweet = $('<div></div>');
             var $date = $('<span></span>');
             var $user = $('<span></span>');
             var $message = $('<span></span>');
 
-            $date.text(tweet.created_at);
-            $user.text(" @" + tweet.user);
+            $date.text(index + "   " + tweet.month + "/" + tweet.day + " " + tweet.hour + ":" + tweet.minute + ":" + tweet.second + " ");
+            $user.text("@" + tweet.user);
             $message.text(": " + tweet.message); 
 
-            $user.addClass("user");
+            $tweet.addClass("tweet default");
+            $user.addClass("user default");
+            $date.addClass("date default");
+            $message.addClass("default");
 
             $date.appendTo($tweet);
             $user.appendTo($tweet);
             $message.appendTo($tweet);
-            $tweet.prependTo($body);
+            $tweet.prependTo(section);
         }
 
         function showNewTweets() {
           while(index < streams.home.length - 1){
+            displayTweet(index, streams.home, $allTweets);
+            $("#allTweets .tweet").last().remove();
             index++;
-            displayTweet(index);
-            $("div").last().remove();
           }          
         }
+
+        $("#allTweets").on("click", ".user", function() {
+          $userTweets.html('');
+          $userName = $(this).text().slice(1);
+          var userStream = $userName === "shawndrost"? streams.users.shawndrost : 
+                      $userName === "sharksforcheap"? streams.users.sharksforcheap : 
+                      $userName === "mracus"? streams.users.mracus: 
+                      streams.users.douglascalhoun;
+          for (var i = 0; i < userStream.length - 1; i++) {
+            displayTweet(i, userStream, $userTweets);
+          }
+        });
       });
 
     </script>

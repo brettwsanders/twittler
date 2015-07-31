@@ -1,4 +1,47 @@
+
+#header {
+	width: 100%;
+	height: 75px;
+	border: 1px solid black;
+}
+
+#container {
+	width: 100%;
+	height: auto;
+	border: 1px solid black;
+}
+
+#allTweets {
+	width: 400px;
+	height: 600px;
+	border: 1px solid blue;
+	float: left;
+}
+
+#userTweets {
+	width: 400px;
+	height: 600px;
+	border: 1px solid red;
+	float: left;
+}
+
 .user {
 	color: blue;
 	font-weight: bold;
+	cursor: pointer;
+}
+
+.date {
+	font-style: italic;
+}
+
+.tweet {
+	margin: 5px;
+	height: auto;
+	width: auto;
+}
+
+.default {
+	font-family: arial;
+	font-size: 11px;
 }
